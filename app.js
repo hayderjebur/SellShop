@@ -6,11 +6,19 @@ const logger = require('morgan');
 const passport = require('passport');
 const User = require('./models/user');
 const session = require('express-session');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
 
 //Require Routes
 const indexRouter = require('./routes/index');
 const postsRouter = require('./routes/posts');
 const reviewsRouter = require('./routes/reviews');
+
+dotenv.config();
+
+//Connect DB
+connectDB();
 
 const app = express();
 
@@ -28,7 +36,7 @@ app.use(
   session({
     secret: 'hello world',
     resave: false,
-    saveUninitalized: true,
+    saveUninitialized: true,
   })
 );
 
