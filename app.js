@@ -6,7 +6,6 @@ const logger = require('morgan');
 const passport = require('passport');
 const User = require('./models/user');
 const session = require('express-session');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
@@ -39,6 +38,9 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
