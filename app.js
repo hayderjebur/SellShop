@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,15 +9,13 @@ const logger = require('morgan');
 const passport = require('passport');
 const User = require('./models/user');
 const session = require('express-session');
-const dotenv = require('dotenv');
+
 const connectDB = require('./config/db');
 
 //Require Routes
 const indexRouter = require('./routes/index');
 const postsRouter = require('./routes/posts');
 const reviewsRouter = require('./routes/reviews');
-
-dotenv.config();
 
 //Connect DB
 connectDB();
