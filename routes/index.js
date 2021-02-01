@@ -1,69 +1,55 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
-const { postRegister } = require('../controllers');
-const { errorHandler } = require('../middleware');
+const {
+  postRegister,
+  postLogin,
+  getLogout,
+  getHomePage,
+  getRegister,
+  getLogin,
+  getProfile,
+  updateProfile,
+  getForgetPassword,
+  putForgetPassword,
+  getResetPassword,
+  putResetPassword,
+} = require('../controllers');
+const { asyncErrorHandler } = require('../middleware');
+
 /* GET home page. */
-router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Surf Shop - Home' });
-});
+router.get('/', getHomePage);
 
 /* GET /register */
-router.get('/register', (req, res, next) => {
-  res.send('GET /register');
-});
+router.get('/register', getRegister);
 
 /* POST /register */
-router.post('/register', errorHandler(postRegister));
+router.post('/register', asyncErrorHandler(postRegister));
 
 /* GET /login */
-router.get('/login', (req, res, next) => {
-  res.send('GET /login');
-});
+router.get('/login', getLogin);
 
 /* POST /login */
-router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failurRedirect: '/login',
-  })
-);
+router.post('/login', postLogin);
 
 // Logout
-router.get('/logout', (req, res, next) => {
-  req.logout();
-  res.redirect('/');
-});
+router.get('/logout', getLogout);
 
 /* GET /profile */
-router.get('/profile', (req, res, next) => {
-  res.send('GET /profile');
-});
+router.get('/profile', getProfile);
 
 /* PUT /profile/:user_id */
-router.put('/profile/:user_id', (req, res, next) => {
-  res.send('PUT /profile/:user_id');
-});
+router.put('/profile/:user_id', updateProfile);
 
 /* GET /forgot */
-router.get('/forgot', (req, res, next) => {
-  res.send('GET /forgot');
-});
+router.get('/forgot', getForgetPassword);
 
 /* PUT /forgot */
-router.put('/forgot', (req, res, next) => {
-  res.send('PUT /forgot');
-});
+router.put('/forgot', putForgetPassword);
 
 /* GET /reset */
-router.get('/reset/:token', (req, res, next) => {
-  res.send('GET /reset/:token');
-});
+router.get('/reset/:token', getResetPassword);
 
 /* PUT /reset */
-router.put('/reset/:token', (req, res, next) => {
-  res.send('PUT /reset/:token');
-});
+router.put('/reset/:token', putResetPassword);
 
 module.exports = router;
