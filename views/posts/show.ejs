@@ -40,28 +40,28 @@
 </div>
 
 <script>
-  mapboxgl.accessToken =
-    'pk.eyJ1IjoiaGF5ZGVyamVidXIiLCJhIjoiY2sxc2s4bDdwMDR6bjNvbTdqaXZ5aHR2NSJ9.t59BFmUr_BYNQrS3hs4U_Q';
-  var monument = [-77.0353, 38.8895];
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/light-v10',
-    center: monument,
-    zoom: 15,
-  });
+  var post = <%- JSON.stringify(post) %>;
 
-  // create the popup
-  var popup = new mapboxgl.Popup({ offset: 25 }).setText(
-    'Construction on the Washington Monument began in 1848.'
-  );
+   mapboxgl.accessToken =
+     'pk.eyJ1IjoiaGF5ZGVyamVidXIiLCJhIjoiY2sxc2s4bDdwMDR6bjNvbTdqaXZ5aHR2NSJ9.t59BFmUr_BYNQrS3hs4U_Q';
 
-  // create DOM element for the marker
-  var el = document.createElement('div');
-  el.id = 'marker';
+   var map = new mapboxgl.Map({
+     container: 'map',
+     style: 'mapbox://styles/mapbox/light-v10',
+     center:post.coordinates,
+     zoom: 15,
+   });
 
-  // create the marker
-  new mapboxgl.Marker(el)
-    .setLngLat(monument)
-    .setPopup(popup) // sets a popup on this marker
-    .addTo(map);
+   // create the popup
+   var popup = new mapboxgl.Popup({ offset: 25 }).setText(post.location);
+
+   // create DOM element for the marker
+   var el = document.createElement('div');
+   el.id = 'marker';
+
+   // create the marker
+   new mapboxgl.Marker(el)
+     .setLngLat(post.coordinates)
+     .setPopup(popup) // sets a popup on this marker
+     .addTo(map);
 </script>
