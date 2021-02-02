@@ -42,26 +42,27 @@
 <script>
   var post = <%- JSON.stringify(post) %>;
 
-   mapboxgl.accessToken =
-     'pk.eyJ1IjoiaGF5ZGVyamVidXIiLCJhIjoiY2sxc2s4bDdwMDR6bjNvbTdqaXZ5aHR2NSJ9.t59BFmUr_BYNQrS3hs4U_Q';
 
-   var map = new mapboxgl.Map({
-     container: 'map',
-     style: 'mapbox://styles/mapbox/light-v10',
-     center:post.coordinates,
-     zoom: 15,
-   });
+    mapboxgl.accessToken =
+      'pk.eyJ1IjoiaGF5ZGVyamVidXIiLCJhIjoiY2sxc2s4bDdwMDR6bjNvbTdqaXZ5aHR2NSJ9.t59BFmUr_BYNQrS3hs4U_Q';
 
-   // create the popup
-   var popup = new mapboxgl.Popup({ offset: 25 }).setText(post.location);
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v10',
+      center:post.coordinates,
+      zoom: 10,
+    });
 
-   // create DOM element for the marker
-   var el = document.createElement('div');
-   el.id = 'marker';
+    // create the popup
+    var popup = new mapboxgl.Popup({ offset: 25 }).setText(post.location);
 
-   // create the marker
-   new mapboxgl.Marker(el)
-     .setLngLat(post.coordinates)
-     .setPopup(popup) // sets a popup on this marker
-     .addTo(map);
+    // create DOM element for the marker
+    var el = document.createElement('div');
+    el.id = 'marker';
+
+    // create the marker
+    new mapboxgl.Marker(el)
+      .setLngLat(post.coordinates)
+      .setPopup(popup) // sets a popup on this marker
+      .addTo(map);
 </script>
