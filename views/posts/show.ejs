@@ -1,14 +1,67 @@
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
+<link
+  href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
+  rel="stylesheet"
+/>
+<style>
+  #marker {
+    background-image: url('/images/mapbox-icon.png');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .mapboxgl-popup {
+    max-width: 200px;
+  }
+</style>
+
 <h1><%= post.title %></h1>
 <div>Price: <%= post.price %></div>
 <div><%= post.description %></div>
 <div><%= post.location %></div>
 <div>
-	<a href="/posts/<%= post.id %>/edit">
-		<button>Edit</button>
-	</a>
+  <% post.images.forEach(function(image) { %>
+  <img src="<%= image.url %>" alt="Surf board image" width="200px" />
+  <% }); %>
+</div>
+<div id="map" style="width: 400px; height: 300px"></div>
+<div>
+  <a href="/posts/<%= post.id %>/edit">
+    <button>Edit</button>
+  </a>
 </div>
 <div>
-	<form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
-		<input type="submit" value="Delete">
-	</form>
+  <form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
+    <input type="submit" value="Delete" />
+  </form>
 </div>
+
+<script>
+  mapboxgl.accessToken =
+    'pk.eyJ1IjoiaGF5ZGVyamVidXIiLCJhIjoiY2sxc2s4bDdwMDR6bjNvbTdqaXZ5aHR2NSJ9.t59BFmUr_BYNQrS3hs4U_Q';
+  var monument = [-77.0353, 38.8895];
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v10',
+    center: monument,
+    zoom: 15,
+  });
+
+  // create the popup
+  var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+    'Construction on the Washington Monument began in 1848.'
+  );
+
+  // create DOM element for the marker
+  var el = document.createElement('div');
+  el.id = 'marker';
+
+  // create the marker
+  new mapboxgl.Marker(el)
+    .setLngLat(monument)
+    .setPopup(popup) // sets a popup on this marker
+    .addTo(map);
+</script>
