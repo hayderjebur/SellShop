@@ -1,6 +1,5 @@
 mapboxgl.accessToken =
   'pk.eyJ1IjoiaGF5ZGVyamVidXIiLCJhIjoiY2trbmVuaGR2MTRjbDJwcGRqNnA5ejR3YyJ9.4zE55ao0gCZOhf-YaO6aLg';
-
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/light-v9',
@@ -20,3 +19,16 @@ new mapboxgl.Marker(el)
       .setHTML('<h3>' + post.title + '</h3><p>' + post.location + '</p>')
   )
   .addTo(map);
+
+// Toggle edit review form
+$('.toggle-edit-form').on('click', function () {
+  // toggle the edit button text on click
+  $(this).text() === 'Edit' ? $(this).text('Cancel') : $(this).text('Edit');
+  // toggle visibility of the edit review form
+  $(this).siblings('.edit-review-form').toggle();
+});
+
+// Add click listener for clearing of rating from edit/new form
+$('.clear-rating').click(function () {
+  $(this).siblings('.input-no-rate').click();
+});
